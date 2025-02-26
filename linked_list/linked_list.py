@@ -2,28 +2,41 @@ from typing import Any
 
 
 class Node:
-    """"""
+    """Represents an item in a singly linked list."""
     def __init__(self, value: Any):
-        """"""
-        self.value = value
-        self.next = None
+        """Initializes a new node with the given value.
+
+        Args:
+            value (Any): The value to be added to the singly linked list.
+
+        Note:
+            - 'self.next' (Any): The next node of the singly linked list, default is None.
+        """
+        self.value: Any = value
+        self.next: Any = None
 
 
 class LinkedList:
-    """"""
+    """Represents a singly linked list."""
     def __init__(self):
-        """"""
+        """Initializes an empty singly linked list."""
         self.head = None
 
     def insert_at_head(self, value: Any) -> None:
-        """"""
+        """Inserts a new head node at the beginning of the linked list.
+
+        Args:
+            value (Any): The value to be inserted."""
         new_node = Node(value)
         new_node.next = self.head
         self.head = new_node
         return
 
     def insert_at_tail(self, value: Any) -> None:
-        """"""
+        """Inserts a new node at the end of the singly linked list.
+
+        Args:
+            value (Any): The value to be inserted."""
         new_node = Node(value)
 
         if self.head is None:
@@ -37,7 +50,14 @@ class LinkedList:
         return
 
     def insert_by_position(self, value: Any, target_value: Any) -> None:
-        """"""
+        """Inserts a new node after the first occurrence of a specified target value.
+
+        Args:
+            value (Any): The value to be inserted.
+            target_value (Any): The value after which the new node must be inserted.
+
+        Raises:
+            ValueError: If the target value is not found in the linked list."""
         new_node = Node(value)
         current = self.head
 
@@ -47,10 +67,16 @@ class LinkedList:
                 current.next = new_node
                 return
             current = current.next
-        print("There is have no node with entered value for place. Please check the value and try again.")
+        raise ValueError("There is have no node with entered value for place. Please check the value and try again.")
 
     def delete(self, value: Any) -> None:
-        """"""
+        """Deletes the first occurrence of the specified value from the linked list.
+
+        Args:
+            value (Any): The value to be deleted.
+
+        Raises:
+            ValueError: If the value is not found in the linked list."""
         if self.head is None:
             print("The linked list is already empty. There is nothing to delete.")
             return
@@ -65,10 +91,10 @@ class LinkedList:
                     return
                 current = current.next
 
-            print("The linked list does not have the specified element. Please check and try again.")
+            raise ValueError("The linked list does not have the specified element. Please check and try again.")
 
     def display(self) -> None:
-        """"""
+        """Prints the elements of the linked list in order."""
         current = self.head
         values = []
 
