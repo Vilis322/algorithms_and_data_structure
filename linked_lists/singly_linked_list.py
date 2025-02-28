@@ -15,6 +15,9 @@ class Node:
         self.value: Any = value
         self.next: Any = None
 
+    def __repr__(self):
+        return f"Node(data={self.value}, next={self.next.value if self.next else None})"
+
 
 class LinkedList:
     """Represents a singly linked list."""
@@ -60,7 +63,6 @@ class LinkedList:
             ValueError: If the target value is not found in the linked list."""
         new_node = Node(value)
         current = self.head
-
         while current:
             if current.value == target_value:
                 new_node.next = current.next
@@ -83,21 +85,24 @@ class LinkedList:
 
         if self.head.value == value:
             self.head = self.head.next
-        else:
-            current = self.head
-            while current.next:
-                if current.next.value == value:
-                    current.next = current.next.next
-                    return
-                current = current.next
+            return
 
-            raise ValueError("The linked list does not have the specified element. Please check and try again.")
+        current = self.head
+        while current.next:
+            if current.next.value == value:
+                current.next = current.next.next
+                return
+            current = current.next
+        raise ValueError("The linked list does not have the specified element. Please check and try again.")
 
     def display(self) -> None:
         """Prints the elements of the linked list in order."""
+        if not self.head:
+            print("The singly linked list is empty.")
+            return
+
         current = self.head
         values = []
-
         while current:
             values.append(str(current.value))
             current = current.next
@@ -108,12 +113,18 @@ class LinkedList:
 
 if __name__ == "__main__":
     linked_list = LinkedList()
+    linked_list.display()
+    linked_list.delete(1)
     linked_list.insert_at_tail(5)
+    linked_list.display()
     linked_list.insert_at_head(4)
+    linked_list.display()
     linked_list.insert_at_head(3)
+    linked_list.display()
     linked_list.insert_at_head(1)
     linked_list.display()
     linked_list.insert_at_tail(7)
+    linked_list.display()
     linked_list.insert_at_tail(7)
     linked_list.display()
     linked_list.delete(7)
@@ -121,6 +132,8 @@ if __name__ == "__main__":
     linked_list.insert_by_position(8, 7)
     linked_list.display()
     linked_list.insert_by_position(2, 1)
+    linked_list.display()
     linked_list.insert_by_position(6, 5)
+    linked_list.display()
     linked_list.insert_by_position(9, 8)
     linked_list.display()
