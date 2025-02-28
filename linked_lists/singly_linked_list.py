@@ -101,7 +101,6 @@ class LinkedList:
         while current:
             values.append(str(current.value))
             current = current.next
-
         output = "->".join(values)
         print(output)
         return
