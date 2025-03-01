@@ -53,8 +53,8 @@ class CircularLinkedList:
         new_node = Node(value)
 
         if self.head is None:
+            new_node.next = new_node
             self.head = new_node
-            new_node.next = self.head
             return
 
         current = self.head
@@ -103,6 +103,10 @@ class CircularLinkedList:
             return
 
         if self.head.value == value:
+            if self.head.next is self.head:
+                self.head = None
+                return
+
             current = self.head
             while current.next is not self.head:
                 current = current.next
@@ -122,6 +126,7 @@ class CircularLinkedList:
         """Prints the elements of the circular linked list in order."""
         if not self.head:
             print("The circular linked list is empty.")
+            return
 
         current = self.head
         values = []
@@ -140,6 +145,8 @@ if __name__ == "__main__":
     linked_list = CircularLinkedList()
     linked_list.insert_at_head(0)
     linked_list.display()
+    linked_list.delete(0)
+    linked_list.display()
     linked_list.insert_at_tail(1)
     linked_list.display()
     linked_list.insert_at_tail(2)
@@ -148,9 +155,9 @@ if __name__ == "__main__":
     linked_list.display()
     linked_list.delete(1)
     linked_list.display()
-    linked_list.delete(0)
-    linked_list.display()
     linked_list.insert_at_head(0)
+    linked_list.display()
+    linked_list.delete(0)
     linked_list.display()
     linked_list.insert_by_position(2.5, 3)
     linked_list.display()
