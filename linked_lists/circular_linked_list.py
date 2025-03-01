@@ -88,7 +88,7 @@ class CircularLinkedList:
 
             if current is self.head:
                 break
-        raise ValueError("There is have no node with entered value for place. Please check the value and try again.")
+        raise ValueError("There is no node with the entered value for place. Please check the value and try again.")
 
     def delete(self, value: Any) -> None:
         """Deletes the first occurrence of the specified value from the circular linked list.
