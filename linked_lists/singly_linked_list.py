@@ -35,7 +35,7 @@ class LinkedList:
         self.head = new_node
         return
 
-    def insert_at_tail(self, value: Any) -> None:
+    def append(self, value: Any) -> None:
         """Inserts a new node at the end of the singly linked list.
 
         Args:
@@ -118,7 +118,7 @@ if __name__ == "__main__":
     linked_list = LinkedList()
     linked_list.display()
     linked_list.delete(1)
-    linked_list.insert_at_tail(5)
+    linked_list.append(5)
     linked_list.display()
     linked_list.insert_at_head(4)
     linked_list.display()
@@ -126,9 +126,9 @@ if __name__ == "__main__":
     linked_list.display()
     linked_list.insert_at_head(1)
     linked_list.display()
-    linked_list.insert_at_tail(7)
+    linked_list.append(7)
     linked_list.display()
-    linked_list.insert_at_tail(7)
+    linked_list.append(7)
     linked_list.display()
     linked_list.delete(7)
     linked_list.display()
