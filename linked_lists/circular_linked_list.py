@@ -7,10 +7,10 @@ class Node:
         """Initializes a new node with the given value.
 
         Args:
-            value (Any): The value to be added to the singly linked list.
+            value (Any): The value to be added to the circular linked list.
 
         Note:
-            - 'self.next' (Any): The next node of the singly linked list, default is None.
+            - 'self.next' (Any): The next node of the circular linked list, default is None.
         """
         self.value: Any = value
         self.next: Any = None
@@ -22,21 +22,31 @@ class Node:
 class CircularLinkedList:
     """Represents a circular linked list."""
     def __init__(self):
-        """Initializes an empty singly linked list."""
+        """Initializes an empty circular linked list."""
         self.head = None
 
     def insert_at_head(self, value: Any) -> None:
-        """Inserts a new head node at the beginning of the linked list.
+        """Inserts a new head node at the beginning of the circular linked list.
 
         Args:
             value (Any): The value to be inserted."""
         new_node = Node(value)
+
+        if not self.head:
+            new_node.next = new_node
+            self.head = new_node
+            return
+
+        current = self.head
+        while current.next is not self.head:
+            current = current.next
         new_node.next = self.head
+        current.next = new_node
         self.head = new_node
         return
 
     def insert_at_tail(self, value: Any) -> None:
-        """Inserts a new node at the end of the singly linked list.
+        """Inserts a new node at the end of the circular linked list.
 
         Args:
             value (Any): The value to be inserted."""
@@ -62,28 +72,34 @@ class CircularLinkedList:
             target_value (Any): The value after which the new node must be inserted.
 
         Raises:
-            ValueError: If the target value is not found in the linked list."""
+            ValueError: If the target value is not found in the circular linked list or if linked list is empty."""
+        if self.head is None:
+            raise ValueError("The circular linked list is empty.")
+
         new_node = Node(value)
         current = self.head
 
-        while current:
+        while True:
             if current.value == target_value:
                 new_node.next = current.next
                 current.next = new_node
                 return
             current = current.next
+
+            if current is self.head:
+                break
         raise ValueError("There is have no node with entered value for place. Please check the value and try again.")
 
     def delete(self, value: Any) -> None:
-        """Deletes the first occurrence of the specified value from the linked list.
+        """Deletes the first occurrence of the specified value from the circular linked list.
 
         Args:
             value (Any): The value to be deleted.
 
         Raises:
-            ValueError: If the value is not found in the linked list."""
+            ValueError: If the value is not found in the circular linked list."""
         if self.head is None:
-            print("The linked list is already empty. There is nothing to delete.")
+            print("The circular linked list is already empty. There is nothing to delete.")
             return
 
         if self.head.value == value:
@@ -100,16 +116,16 @@ class CircularLinkedList:
                 current.next = current.next.next
                 return
             current = current.next
-        raise ValueError("The linked list does not have the specified element. Please check and try again.")
+        raise ValueError("The circular linked list does not have the specified element. Please check and try again.")
 
     def display(self) -> None:
-        """Prints the elements of the linked list in order."""
+        """Prints the elements of the circular linked list in order."""
         if not self.head:
             print("The circular linked list is empty.")
 
         current = self.head
         values = []
-        while current:
+        while True:
             values.append(str(current.value))
             current = current.next
             if current is self.head:
@@ -122,9 +138,19 @@ class CircularLinkedList:
 
 if __name__ == "__main__":
     linked_list = CircularLinkedList()
+    linked_list.insert_at_head(0)
+    linked_list.display()
     linked_list.insert_at_tail(1)
     linked_list.display()
     linked_list.insert_at_tail(2)
+    linked_list.insert_by_position(3, 2)
+    linked_list.display()
     linked_list.display()
     linked_list.delete(1)
+    linked_list.display()
+    linked_list.delete(0)
+    linked_list.display()
+    linked_list.insert_at_head(0)
+    linked_list.display()
+    linked_list.insert_by_position(2.5, 3)
     linked_list.display()
