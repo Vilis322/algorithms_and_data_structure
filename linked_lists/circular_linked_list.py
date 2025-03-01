@@ -45,7 +45,7 @@ class CircularLinkedList:
         self.head = new_node
         return
 
-    def insert_at_tail(self, value: Any) -> None:
+    def append(self, value: Any) -> None:
         """Inserts a new node at the end of the circular linked list.
 
         Args:
@@ -147,9 +147,9 @@ if __name__ == "__main__":
     linked_list.display()
     linked_list.delete(0)
     linked_list.display()
-    linked_list.insert_at_tail(1)
+    linked_list.append(1)
     linked_list.display()
-    linked_list.insert_at_tail(2)
+    linked_list.append(2)
     linked_list.insert_by_position(3, 2)
     linked_list.display()
     linked_list.display()
