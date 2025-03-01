@@ -52,7 +52,7 @@ class CircularLinkedList:
             value (Any): The value to be inserted."""
         new_node = Node(value)
 
-        if self.head is None:
+        if not self.head:
             new_node.next = new_node
             self.head = new_node
             return
@@ -73,7 +73,7 @@ class CircularLinkedList:
 
         Raises:
             ValueError: If the target value is not found in the circular linked list or if linked list is empty."""
-        if self.head is None:
+        if not self.head:
             raise ValueError("The circular linked list is empty.")
 
         new_node = Node(value)
@@ -98,7 +98,7 @@ class CircularLinkedList:
 
         Raises:
             ValueError: If the value is not found in the circular linked list."""
-        if self.head is None:
+        if not self.head:
             print("The circular linked list is already empty. There is nothing to delete.")
             return
 
@@ -160,4 +160,6 @@ if __name__ == "__main__":
     linked_list.delete(0)
     linked_list.display()
     linked_list.insert_by_position(2.5, 3)
+    linked_list.display()
+    linked_list.delete(2.5)
     linked_list.display()
