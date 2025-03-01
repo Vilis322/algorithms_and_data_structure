@@ -19,7 +19,7 @@ class Node:
         return f"Node(data={self.value}, next={self.next.value if self.next else None})"
 
 
-class LinkedList:
+class SinglyLinkedList:
     """Represents a singly linked list."""
     def __init__(self):
         """Initializes an empty singly linked list."""
@@ -42,7 +42,7 @@ class LinkedList:
             value (Any): The value to be inserted."""
         new_node = Node(value)
 
-        if self.head is None:
+        if not self.head:
             self.head = new_node
             return
 
@@ -61,7 +61,7 @@ class LinkedList:
 
         Raises:
             ValueError: If the target value is not found in the singly linked list or if linked list is empty"""
-        if self.head is None:
+        if not self.head:
             raise ValueError("The singly linked list is empty.")
 
         new_node = Node(value)
@@ -82,7 +82,7 @@ class LinkedList:
 
         Raises:
             ValueError: If the value is not found in the singly linked list."""
-        if self.head is None:
+        if not self.head:
             print("The singly linked list is already empty. There is nothing to delete.")
             return
 
@@ -115,7 +115,7 @@ class LinkedList:
 
 
 if __name__ == "__main__":
-    linked_list = LinkedList()
+    linked_list = SinglyLinkedList()
     linked_list.display()
     linked_list.delete(1)
     linked_list.append(5)
