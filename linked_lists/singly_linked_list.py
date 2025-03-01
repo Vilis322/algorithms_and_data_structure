@@ -60,7 +60,10 @@ class LinkedList:
             target_value (Any): The value after which the new node must be inserted.
 
         Raises:
-            ValueError: If the target value is not found in the singly linked list."""
+            ValueError: If the target value is not found in the singly linked list or if linked list is empty"""
+        if self.head is None:
+            raise ValueError("The singly linked list is empty.")
+
         new_node = Node(value)
         current = self.head
         while current:
@@ -80,7 +83,7 @@ class LinkedList:
         Raises:
             ValueError: If the value is not found in the singly linked list."""
         if self.head is None:
-            print("The linked list is already empty. There is nothing to delete.")
+            print("The singly linked list is already empty. There is nothing to delete.")
             return
 
         if self.head.value == value:
@@ -93,7 +96,7 @@ class LinkedList:
                 current.next = current.next.next
                 return
             current = current.next
-        raise ValueError("The linked list does not have the specified element. Please check and try again.")
+        raise ValueError("The singly linked list does not have the specified element. Please check and try again.")
 
     def display(self) -> None:
         """Prints the elements of the singly linked list in order."""
