@@ -29,6 +29,95 @@ class DoublyLinkedList:
         self.head = None
         self.tail = None
 
+    def __add__(self, other: "DoublyLinkedList") -> "DoublyLinkedList":
+        """Updates a linked list with concatenating of the second doubly linked lists.
+
+        Args:
+            other (DoublyLinkedList): The other doubly linked list to be added.
+
+        Returns:
+            DoublyLinkedList: The updated doubly linked list with concatenated 'other' doubly linked list.
+        Raises:
+            TypeError: if 'other' is not instance of DoublyLinkedList.
+        """
+        try:
+            if not isinstance(other, DoublyLinkedList):
+                raise TypeError("An entered data is not a doubly linked list. Check the value and try again.")
+        except TypeError as e:
+            print(str(e))
+            return self
+
+        if not other.head:
+            print("The second doubly linked list is empty.")
+            return self
+
+        if not self.head:
+            print("The first doubly linked list is empty.")
+            return other
+
+        last_node = self.head
+        while last_node.next:
+            last_node = last_node.next
+        last_node.next = other.head
+        return self
+
+    def __iter__(self):
+        """Iterate through the doubly linked list and yields its elements.
+
+        Yields:
+            Any: The elements of the doubly linked list one by one from the first to the last.
+        """
+        current = self.head
+        while current:
+            yield current
+            current = current.next
+
+    @staticmethod
+    def concatenation(first_ll: "DoublyLinkedList", second_ll: "DoublyLinkedList") -> "DoublyLinkedList | None":
+        """Creates a new doubly linked list with concatenated two linked lists.
+
+        Args:
+            first_ll (DoublyLinkedList): The first singly linked list to be concatenated with.
+            second_ll (DoublyLinkedList): The second singly linked list to be concatenated with.
+
+        Returns:
+            DoublyLinkedList: The new linked list that is a result of concatenation of the two singly linked lists.
+
+        Raises:
+            TypeError: if 'first_ll' or/and 'second_ll' is not instance of DoublyLinkedList.
+        """
+        try:
+            if not isinstance(first_ll, DoublyLinkedList) or not isinstance(second_ll, DoublyLinkedList):
+                raise TypeError(f"The {'first' if not isinstance(first_ll, DoublyLinkedList)
+                                else 'second' if not isinstance(second_ll, DoublyLinkedList)
+                                else 'first and second'} argument is not a doubly linked list")
+        except TypeError as e:
+            print(str(e))
+        finally:
+            if not isinstance(first_ll, DoublyLinkedList):
+                return second_ll
+            elif not isinstance(second_ll, DoublyLinkedList):
+                return first_ll
+            elif not isinstance(first_ll, DoublyLinkedList) and not isinstance(second_ll, DoublyLinkedList):
+                return DoublyLinkedList()
+
+        if not first_ll.head:
+            print("The first linked list is empty.")
+            return second_ll
+
+        if not second_ll.head:
+            print("The second linked list is empty.")
+            return first_ll
+
+        concatenated_ll = DoublyLinkedList()
+        for node in first_ll:
+            concatenated_ll.append(node.value)
+
+        last_node = concatenated_ll.tail
+        last_node.next = second_ll.head
+        second_ll.head.prev = last_node
+        return concatenated_ll
+
     def insert_at_head(self, value: Any) -> None:
         """Inserts a new head node at the beginning of the doubly linked list.
 
@@ -170,14 +259,26 @@ class DoublyLinkedList:
 
 
 if __name__ == "__main__":
-    linked_list = DoublyLinkedList()
-    linked_list.display()
-    linked_list.insert_at_head(1)
-    linked_list.display()
-    linked_list.insert_at_head(0)
-    linked_list.insert_by_position(2, 1)
-    linked_list.display()
-    linked_list.delete(2)
-    linked_list.append(2)
-    linked_list.display()
-    linked_list.display(from_tail=True)
+    linked_list1 = DoublyLinkedList()
+    linked_list2 = DoublyLinkedList()
+    linked_list1.insert_at_head(5)
+    linked_list1.insert_at_head(4)
+    linked_list1.insert_at_head(3)
+    linked_list1.insert_at_head(2)
+    linked_list1.insert_at_head(1)
+    linked_list2.insert_at_head(10)
+    linked_list2.insert_at_head(9)
+    linked_list2.insert_at_head(8)
+    linked_list2.insert_at_head(7)
+    linked_list2.insert_at_head(6)
+    ll4 = DoublyLinkedList.concatenation(linked_list1, linked_list2)
+    ll4.display()
+    ll3 = linked_list1 + linked_list2
+    ll3.display()
+    linked_list1.display()
+    lin = DoublyLinkedList.concatenation(2, 2)
+    lin.display()
+    lin = DoublyLinkedList.concatenation(2, linked_list2)
+    lin.display()
+    lin = DoublyLinkedList.concatenation(linked_list2, 2)
+    lin.display()
