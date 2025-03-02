@@ -89,17 +89,13 @@ class DoublyLinkedList:
         try:
             if not isinstance(first_ll, DoublyLinkedList) or not isinstance(second_ll, DoublyLinkedList):
                 raise TypeError(f"The {'first' if not isinstance(first_ll, DoublyLinkedList)
-                                else 'second' if not isinstance(second_ll, DoublyLinkedList)
-                                else 'first and second'} argument is not a doubly linked list")
+                                else 'second'} argument is not a doubly linked list")
         except TypeError as e:
             print(str(e))
-        finally:
-            if not isinstance(first_ll, DoublyLinkedList):
-                return second_ll
-            elif not isinstance(second_ll, DoublyLinkedList):
+            if not isinstance(second_ll, DoublyLinkedList):
                 return first_ll
-            elif not isinstance(first_ll, DoublyLinkedList) and not isinstance(second_ll, DoublyLinkedList):
-                return DoublyLinkedList()
+            else:
+                return second_ll
 
         if not first_ll.head:
             print("The first linked list is empty.")
@@ -276,8 +272,6 @@ if __name__ == "__main__":
     ll3 = linked_list1 + linked_list2
     ll3.display()
     linked_list1.display()
-    lin = DoublyLinkedList.concatenation(2, 2)
-    lin.display()
     lin = DoublyLinkedList.concatenation(2, linked_list2)
     lin.display()
     lin = DoublyLinkedList.concatenation(linked_list2, 2)
