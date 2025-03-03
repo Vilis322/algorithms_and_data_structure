@@ -9,8 +9,8 @@ class CircularQueue:
             capacity (int): represents maximum capacity of the circular queue.
 
         Notes:
-            'self.front' (int): index of the first element. If is -1, the circular queue is empty.
-            'self.rear' (int): index of the last added element. If is (4+1) % 5 = 0 than the circular queue is full.
+            'self.front' (int): index of the first element.
+            'self.rear' (int): index of the last added element.
         """
         self.capacity = capacity
         self.queue = [None] * capacity
