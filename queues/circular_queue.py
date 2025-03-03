@@ -39,10 +39,10 @@ class CircularQueue:
         Args:
             value (Any): value to be enqueued to the circular queue.
         """
-        if self.is_full():
-            self.front = (self.front + 1) % self.capacity
-        elif self.is_empty():
+        if self.is_empty():
             self.front = self.rear = 0
+        elif self.is_full():
+            self.front = (self.front + 1) % self.capacity
         self.rear = (self.rear + 1) % self.capacity
         self.queue[self.rear] = value
         return
@@ -88,7 +88,6 @@ class CircularQueue:
 
 if __name__ == "__main__":
     cq = CircularQueue(5)
-    print(cq.is_full())
     cq.enqueue(1)
     cq.enqueue(2)
     cq.enqueue(3)
