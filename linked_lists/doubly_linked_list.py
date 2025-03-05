@@ -85,17 +85,17 @@ class DoublyLinkedList:
             return first_ll
 
         concatenated_ll = DoublyLinkedList()
+
         current = first_ll.head
         while current:
             concatenated_ll.append(current.value)
             current = current.next
+
         current = second_ll.head
         while current:
             concatenated_ll.append(current.value)
             current = current.next
-        current = concatenated_ll.head
-        while current:
-            current = current.next
+
         return concatenated_ll
 
     def insert_at_head(self, value: Any) -> None:
