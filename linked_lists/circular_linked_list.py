@@ -140,26 +140,29 @@ class CircularLinkedList:
         print(output)
         return
 
+    def reverse(self) -> None:
+        """Reverses the circular linked list."""
+        if not self.head or not self.head.next:
+            return
+
+        last = self.head
+        current = self.head.next
+        prev = self.head
+        while current is not self.head:
+            next_node = current.next
+            current.next = prev
+            prev = current
+            current = next_node
+        self.head = prev
+        last.next = self.head
+
 
 if __name__ == "__main__":
     linked_list = CircularLinkedList()
-    linked_list.insert_at_head(0)
+    linked_list.insert_at_head(44)
+    linked_list.insert_at_head(33)
+    linked_list.insert_at_head(22)
+    linked_list.insert_at_head(11)
     linked_list.display()
-    linked_list.delete(0)
-    linked_list.display()
-    linked_list.append(1)
-    linked_list.display()
-    linked_list.append(2)
-    linked_list.insert_by_position(3, 2)
-    linked_list.display()
-    linked_list.display()
-    linked_list.delete(1)
-    linked_list.display()
-    linked_list.insert_at_head(0)
-    linked_list.display()
-    linked_list.delete(0)
-    linked_list.display()
-    linked_list.insert_by_position(2.5, 3)
-    linked_list.display()
-    linked_list.delete(2.5)
+    linked_list.reverse()
     linked_list.display()
