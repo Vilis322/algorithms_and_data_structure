@@ -95,7 +95,6 @@ class DoublyLinkedList:
             current = current.next
         current = concatenated_ll.head
         while current:
-            print(current)
             current = current.next
         return concatenated_ll
 
@@ -196,17 +195,13 @@ class DoublyLinkedList:
             current = current.next
         raise ValueError("The doubly linked list does not have the specified element. Please check and try again.")
 
-    def display(self, from_head=False, from_tail=False) -> None:
+    def display(self, from_head=None, from_tail=None) -> None:
         """Prints the elements of the doubly linked list in order from head to tail and from tail to head.
 
         Args:
-            from_head (bool): If True, prints the elements from head to tail, default is False.
-            from_tail (bool): If True, prints the elements from tail to head, default is False.
+            from_head (bool): If True, prints the elements from head to tail, default is None.
+            from_tail (bool): If True, prints the elements from tail to head, default is None.
         """
-        if not isinstance(self, DoublyLinkedList):
-            print("The data is not a doubly linked list.")
-            return
-
         if not self.head:
             print("The doubly linked list is empty.")
             return
@@ -242,23 +237,41 @@ class DoublyLinkedList:
         print(output)
         return
 
+    def is_palindrome(self) -> bool:
+        """Checks that the doubly linked list is palindrome.
+
+        Returns:
+            bool: True if the doubly linked is palindrome, False otherwise.
+        """
+        if self.head is self.tail:
+            return True
+
+        right_element = self.tail
+        left_element = self.head
+        print(left_element, right_element)
+        while left_element is not right_element and left_element.next is not right_element:
+            if left_element.value == right_element.value:
+                left_element = left_element.next
+                right_element = right_element.prev
+                print(left_element, right_element)
+            else:
+                return False
+        return True
+
 
 if __name__ == "__main__":
     linked_list1 = DoublyLinkedList()
+    for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
+        linked_list1.append(i)
+
     linked_list2 = DoublyLinkedList()
-    linked_list1.insert_at_head(5)
-    linked_list1.insert_at_head(4)
-    linked_list1.insert_at_head(3)
-    linked_list1.insert_at_head(2)
-    linked_list1.insert_at_head(1)
-    linked_list2.insert_at_head(10)
-    linked_list2.insert_at_head(9)
-    linked_list2.insert_at_head(8)
-    linked_list2.insert_at_head(7)
-    linked_list2.insert_at_head(6)
-    ll4 = DoublyLinkedList.concatenation(linked_list1, linked_list2)
-    ll4.display()
-    ll4.display(from_tail=True)
-    ll3 = linked_list1 + linked_list2
-    ll3.display()
-    ll3.display(from_tail=True)
+    for i in [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]:
+        linked_list2.append(i)
+
+    palindrome_linked_list = DoublyLinkedList.concatenation(linked_list1, linked_list2)
+    palindrome_linked_list.display()
+    print(palindrome_linked_list.is_palindrome())
+    palindrome_linked_list.insert_by_position(11, 10)
+    print(palindrome_linked_list.is_palindrome())
+    print(linked_list1.is_palindrome())
+    print(linked_list2.is_palindrome())
