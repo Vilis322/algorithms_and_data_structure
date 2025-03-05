@@ -159,10 +159,8 @@ class CircularLinkedList:
 
 if __name__ == "__main__":
     linked_list = CircularLinkedList()
-    linked_list.insert_at_head(44)
-    linked_list.insert_at_head(33)
-    linked_list.insert_at_head(22)
-    linked_list.insert_at_head(11)
+    for i in [11, 22, 33, 44, 55, 66, 77, 88, 99]:
+        linked_list.append(i)
     linked_list.display()
     linked_list.reverse()
     linked_list.display()
