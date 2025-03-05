@@ -98,6 +98,24 @@ class SinglyLinkedList:
             current = current.next
         raise ValueError("The singly linked list does not have the specified element. Please check and try again.")
 
+    def remove_duplicates(self) -> None:
+        """Removes duplicates from sorted linked list."""
+        if not self.head:
+            print("The singly linked list is already empty.")
+            return
+
+        current = self.head
+        while current.next:
+            if current.value == current.next.value:
+                current.next = current.next.next
+            else:
+                current = current.next
+        return
+
+    def sort(self) -> None:
+        """Sort the linked list in ascending order from the lowest to the biggest."""
+        pass
+
     def display(self) -> None:
         """Prints the elements of the singly linked list in order."""
         if not self.head:
@@ -139,4 +157,24 @@ if __name__ == "__main__":
     linked_list.insert_by_position(6, 5)
     linked_list.display()
     linked_list.insert_by_position(9, 8)
+    linked_list.display()
+    linked_list.insert_by_position(6, 5)
+    linked_list.insert_by_position(6, 5)
+    linked_list.insert_by_position(6, 5)
+    linked_list.insert_by_position(6, 5)
+    linked_list.insert_by_position(6, 5)
+    linked_list.display()
+    linked_list.remove_duplicates()
+    linked_list.display()
+    linked_list.append(9)
+    linked_list.append(9)
+    linked_list.append(9)
+    linked_list.insert_at_head(1)
+    linked_list.insert_at_head(1)
+    linked_list.insert_at_head(0)
+    linked_list.insert_at_head(0)
+    linked_list.insert_at_head(0)
+    linked_list.insert_at_head(0)
+    linked_list.display()
+    linked_list.remove_duplicates()
     linked_list.display()
