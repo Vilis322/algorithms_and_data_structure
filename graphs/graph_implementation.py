@@ -3,52 +3,76 @@ from collections import defaultdict
 
 
 class GraphInterface(ABC):
+    """Represents an abstract class that all graphs should inherit from."""
     @abstractmethod
     def __init__(self, num_vertices: int):
+        """Initializes a graph with finite given number of vertices."""
         super().__init__()
-        self.num_vertices = num_vertices
-        self.graph = defaultdict(list)
+        self.graph = {i: [] for i in range(1, num_vertices + 1)}
 
     @abstractmethod
     def add_edge(self, v1: int, v2: int) -> None:
+        """Sets an undirected edge between two given vertices.
+
+        Args:
+            v1 (int): The first given vertex.
+            v2 (int): The second given vertex.
+        """
         pass
 
     @abstractmethod
     def is_adjacent(self, v1: int, v2: int) -> bool:
+        """Checks if the given vertex v2 is adjacent to the given vertex v1.
+
+        Args:
+            v1 (int): The first given vertex.
+            v2 (int): The second given vertex.
+
+        Returns:
+            bool: True if vertex v2 is adjacent to the vertex v1, False otherwise.
+        """
         pass
 
     @abstractmethod
     def return_adjacent(self, v: int) -> list[int]:
+        """Returns the adjacent vertices of the given vertex.
+
+        Args:
+            v (int): The given vertex.
+
+        Returns:
+            list[int]: The adjacent vertices of the given vertex.
+        """
         pass
 
 
 class WeightedGraphInterface(GraphInterface):
+    """Represents an abstract class that all weighted graphs should inherit."""
     @abstractmethod
     def add_edge(self, v1: int, v2: int, w: int) -> None:
+        """Adds an undirected weighted edge between two given vertices.
+
+        Args:
+            v1 (int): The first given vertex.
+            v2 (int): The second given vertex.
+            w (int): The weight of the edge.
+        """
         pass
 
 
 class Graph(GraphInterface):
     """Represents an undirected graph."""
-    def __init__(self):
+    def __init__(self, num_vertices: int):
         """Initializes an empty graph."""
-        super().__init__(num_vertices=0)
+        super().__init__(num_vertices)
 
     def add_edge(self, v1: int, v2: int) -> None:
         """Adds an undirected edge between vertices v1 and v2.
-
-        If v1 or v2 vertices are not exist in the graph, they are added,
-        and the count of the number of vertices (num_vertices) is incremented.
 
         Args:
             v1 (int): The first vertex.
             v2 (int): The second vertex.
         """
-        if v1 not in self.graph:
-            self.num_vertices += 1
-        if v2 not in self.graph:
-            self.num_vertices += 1
-
         self.graph[v1].append(v2)
         self.graph[v2].append(v1)
         return
@@ -79,26 +103,17 @@ class Graph(GraphInterface):
 
 class DirectedGraph(GraphInterface):
     """Represents a directed graph."""
-    def __init__(self):
+    def __init__(self, num_vertices: int):
         """Initializes an empty directed graph."""
-        super().__init__(num_vertices=0)
+        super().__init__(num_vertices)
 
     def add_edge(self, v1: int, v2: int) -> None:
         """Adds a directed edge from vertex v1 to vertex v2.
-
-        If v1 or v2 vertices are not exist in the graph, they are added,
-        and the count of the number of vertices (num_vertices) is incremented.
 
         Args:
             v1 (int): The first vertex.
             v2 (int): The second vertex.
         """
-        if v1 not in self.graph:
-            self.num_vertices += 1
-        if v2 not in self.graph:
-            self.graph.setdefault(v2, [])
-            self.num_vertices += 1
-
         self.graph[v1].append(v2)
         return
 
@@ -128,26 +143,18 @@ class DirectedGraph(GraphInterface):
 
 class WeightedGraph(WeightedGraphInterface):
     """Represents an undirected weighted graph."""
-    def __init__(self):
+    def __init__(self, num_vertices: int):
         """Initializes an empty weighted graph."""
-        super().__init__(num_vertices=0)
+        super().__init__(num_vertices)
 
     def add_edge(self, v1: int, v2: int, w: int) -> None:
         """Adds an undirected edge between vertices v1 and v2 and weight for this edge.
-
-        If v1 or v2 vertices are not exist in the graph, they are added,
-        and the count of the number of vertices (num_vertices) is incremented.
 
         Args:
             v1 (int): The first vertex.
             v2 (int): The second vertex.
             w (int): The weight of the edge.
         """
-        if v1 not in self.graph:
-            self.num_vertices += 1
-        if v2 not in self.graph:
-            self.num_vertices += 1
-
         self.graph[v1].append((v2, w))
         self.graph[v2].append((v1, w))
         return
@@ -178,7 +185,7 @@ class WeightedGraph(WeightedGraphInterface):
 
 
 if __name__ == "__main__":
-    graph = Graph()
+    graph = Graph(5)
 
     # Add edges
     graph.add_edge(1, 2)
@@ -197,7 +204,7 @@ if __name__ == "__main__":
     # Check non-existing vertex
     print("Adjacent vertices to 5:", graph.return_adjacent(5))  # []
 
-    directed_graph = DirectedGraph()
+    directed_graph = DirectedGraph(5)
 
     # Add directed edges
     directed_graph.add_edge(1, 2)
@@ -218,7 +225,7 @@ if __name__ == "__main__":
     # Check non-existing vertex
     print("Adjacent vertices to 5:", directed_graph.return_adjacent(5))  # []
 
-    weighted_graph = WeightedGraph()
+    weighted_graph = WeightedGraph(5)
 
     # Add undirected edges with weights
     weighted_graph.add_edge(1, 2, 10)
