@@ -42,10 +42,9 @@ class Deque:
         if self.is_empty():
             self.front = self.rear = 0
         elif self.is_full():
-            self.front = (self.front - 1) % self.capacity
-            self.rear = (self.rear - 1) % self.capacity
-        else:
-            self.front = (self.front - 1) % self.capacity
+            self.front = (self.front + 1) % self.capacity
+
+        self.front = (self.front - 1) % self.capacity
         self.deque[self.front] = value
         return
 
@@ -59,9 +58,8 @@ class Deque:
             self.front = self.rear = 0
         elif self.is_full():
             self.front = (self.front + 1) % self.capacity
-            self.rear = (self.rear + 1) % self.capacity
-        else:
-            self.rear = (self.rear + 1) % self.capacity
+
+        self.rear = (self.rear + 1) % self.capacity
         self.deque[self.rear] = value
         return
 
@@ -131,23 +129,15 @@ class Deque:
 
 
 if __name__ == "__main__":
-    dq = Deque(3)
-    dq.insert_rear(1)
+    dq = Deque(5)
+    for i in [1, 2, 3, 4, 5]:
+        dq.insert_rear(i)
     dq.display()
-    dq.insert_rear(2)
-    print(dq.deque)
-    dq. display()
-    dq.insert_rear(3)
+    dq.insert_rear(6)
     dq.display()
-    dq.insert_rear(4)
+    dq.insert_front(0)
     dq.display()
-    print(dq.peek_rear())
-    print(dq.peek_front())
-    dq.insert_rear(5)
+    dq.insert_front(2)
     dq.display()
-    print(dq.delete_front())
-    print(dq.delete_rear())
-    print(dq.is_empty())
-    print(dq.is_full())
-    print(dq.delete_rear())
-    print(dq.is_empty())
+    dq.insert_rear(7)
+    dq.display()
