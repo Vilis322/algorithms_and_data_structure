@@ -42,7 +42,7 @@ class Deque:
         if self.is_empty():
             self.front = self.rear = 0
         elif self.is_full():
-            self.front = (self.front + 1) % self.capacity
+            self.rear = (self.rear - 1) % self.capacity
 
         self.front = (self.front - 1) % self.capacity
         self.deque[self.front] = value
