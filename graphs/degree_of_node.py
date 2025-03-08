@@ -39,7 +39,7 @@ class Node:
         Args:
             node_id (int): The unic node ID.
             data (Any): The data of the node.
-            parent (Node): The parent node of current the node, or None if this is the root.
+            parent (Node, optional): The parent node of current the node, or 'None' if this is the root.
         """
         self.id = node_id
         self.data = data
