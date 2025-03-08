@@ -1,7 +1,7 @@
 from typing import Any
 
 
-class Deque:
+class CircularDeque:
     def __init__(self, capacity: int):
         """Initializes an empty circular deque.
 
@@ -36,8 +36,28 @@ class Deque:
     def insert_front(self, value: Any) -> None:
         """Inserts an element at the front of the circular deque.
 
+        If the deque is empty, the element is inserted at index 0.
+        If the deque is full, the rear element is removed, and the new element replaces it.
+        Otherwise, element is inserted ar `(front - 1) % capacity`, following circular behavior.
+
         Args:
             value (Any): the value to be inserted at the front of the circular deque.
+
+        Example:
+            Inserting into a full deque (capacity = 5).
+            ```python
+            deque = CircularDeque(5)
+            for i in [10, 20, 30, 40, 50]:
+                deque.insert_front(i)
+
+            deque.insert_front(60)  # Overwrites index 4 (current rear)
+            # Before: [50, 40, 30, 20, 10] => front=0, rear=4, deque.is_full()=True
+            # After: [50, 40, 30, 20, 60] => front=4, rear=3, deque.is_full()=True
+
+            deque.insert_front(70)  # Overwrites index 3 (current rear)
+            # Before: [50, 40, 30, 20, 60] => front=4, rear=3, deque.is_full()=True
+            # After: [50, 40, 30, 70, 60] => front=3, rear=2, deque.is_full()=True
+            ```
         """
         if self.is_empty():
             self.front = self.rear = 0
@@ -51,8 +71,29 @@ class Deque:
     def insert_rear(self, value: Any) -> None:
         """Inserts an element at the rear of the circular deque.
 
+        If the deque is empty, the element is inserted at index 0.
+        If the deque is full, the front element is removed, and the new element replaces it.
+        Otherwise, the element is inserted at `(rear + 1) % capacity`, following circular behavior.
+
         Args:
             value (Any): the value to be inserted at the rear of the circular deque.
+
+        Example:
+            Inserting into a full deque (capacity = 5):
+
+            ```python
+            deque = CircularDeque(5)
+            for i in [10, 20, 30, 40, 50]:
+                deque.insert_rear(i)
+
+            deque.insert_rear(60)  # Overwrites index 1 (current front)
+            # Before: [50, 10, 20, 30, 40] => front=1, rear=0, deque.is_full()=True
+            # After: [50, 60, 20, 30, 40] => front=2, rear=1, deque.is_full()=True
+
+            deque.insert_rear(70)  # Overwrites index 2 (current front)
+            # Before: [50, 60, 20, 30, 40] => front=2, rear=1, deque.is_full()=True
+            # After: [50, 60, 70, 30, 40] => front=3, rear=2, deque.is_full()=True
+            ```
         """
         if self.is_empty():
             self.front = self.rear = 0
@@ -127,17 +168,21 @@ class Deque:
         print(self.deque[self.rear])
         return
 
+    def __repr__(self) -> str:
+        """Returns a string representation of the circular deque and front and rear indexes."""
+        return f"Deque_list={self.deque}, front={self.front}, rear={self.rear}"
+
 
 if __name__ == "__main__":
-    dq = Deque(5)
-    for i in [1, 2, 3, 4, 5]:
+    dq = CircularDeque(5)
+    for i in [10, 20, 30, 40, 50]:
         dq.insert_rear(i)
+    print(dq)
     dq.display()
-    dq.insert_rear(6)
+    dq.insert_rear(60)
+    print(dq)
     dq.display()
-    dq.insert_front(0)
+    dq.insert_rear(70)
+    print(dq)
     dq.display()
-    dq.insert_front(2)
-    dq.display()
-    dq.insert_rear(7)
-    dq.display()
+
