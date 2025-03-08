@@ -64,8 +64,8 @@ class Tree:
         Args:
             root_data (Any): The data of the root.
         """
-        self.root = Node(node_id=0, data=root_data)
-        self.map = {0: self.root}
+        self.root: 'Node' = Node(node_id=0, data=root_data)
+        self.map: dict = {0: self.root}
 
     def add_child(self, child_data: Any, to_node_id: int = 0) -> 'Node':
         """Adds a child node to the tree under a specified parent node with the given data and assigns it a unique ID.
