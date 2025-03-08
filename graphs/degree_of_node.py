@@ -41,10 +41,10 @@ class Node:
             data (Any): The data of the node.
             parent (Node, optional): The parent node of current the node, or 'None' if this is the root.
         """
-        self.id = node_id
-        self.data = data
-        self.parent = parent
-        self.child = []
+        self.id: int = node_id
+        self.data: Any = data
+        self.parent: 'Node' = parent
+        self.child: list['Node'] = []
 
     def __repr__(self) -> str:
         """A string representation of the node that prints its unic id and its data."""
@@ -64,7 +64,7 @@ class Tree:
         Args:
             root_data (Any): The data of the root.
         """
-        self.root = Node(0, root_data)
+        self.root = Node(node_id=0, data=root_data)
         self.map = {0: self.root}
 
     def add_child(self, child_data: Any, to_node_id: int = 0) -> 'Node':
@@ -85,7 +85,7 @@ class Tree:
         """
         parent = self.map[to_node_id]  # Get the parent node by its ID
         last_id = len(self.map)  # Generates a new unique ID for the child node
-        new_node = Node(last_id, child_data, parent)  # Create the new child node with the parent reference
+        new_node = Node(node_id=last_id, data=child_data, parent=parent)  # Create new child node with parent reference
         parent.child.append(new_node)  # Add the new node to the parent's list of children
         self.map[last_id] = new_node  # Add the new node to the map with its unique ID
         return new_node  # Return the newly created node
