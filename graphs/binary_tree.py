@@ -2,6 +2,11 @@ from re import match
 from typing import Any, Optional
 
 
+class MaxChildrenError(Exception):
+    """Raised when trying to add more than two children to a binary tree node."""
+    pass
+
+
 class Stack:
     def __init__(self):
         self.stack = []
@@ -74,3 +79,84 @@ class BinaryTree:
         """
         self.root: 'BinaryNode' = BinaryNode(BinaryNode_id=0, data=root_data)
         self.map: dict = {0: self.root}
+
+    def add_child(self, child_data: Any, to_node_id: int = 0) -> None:
+        """Adds a child node to the binary tree.
+
+        This method creates a new child node with a unique ID and attaches it to the parent node
+        identified by its unique ID. By default, the parent node is assumed to the root.
+        The new node is assigned to the left child position if available,
+        otherwise it is assigned to the right child position. If both child positions are occupied,
+        the custom MaxChildrenError is raised.
+
+        Args:
+            child_data (Any): The given data stored in the child node.
+            to_node_id (int): The unique ID for the parent node, default is '0' (root of the tree)
+
+        Raises:
+            MaxChildrenError: If the parent node already has left and right children.
+        """
+        parent = self.map[to_node_id]
+        last_id = len(self.map)
+        new_node = BinaryNode(BinaryNode_id=last_id, data=child_data, parent=parent)
+        if not parent.left:
+            parent.left = new_node
+        elif not parent.right:
+            parent.right = new_node
+        else:
+            raise MaxChildrenError("In BinaryTree one can't be added more than 2 Nodes to parent.")
+        self.map[last_id] = new_node
+
+    def __iter__(self):
+        """Performs a Preorder Depth-First Search (DFS) traversal of the binary tree.
+
+        This method uses a stack to recursive traverse.
+        The root node is pushed onto the stack first. Then, nodes are popped one by one,
+        visiting them in preorder (root -> left -> right). For each visited node,
+        its right child is pushed onto the stack first, followed by the left child.
+        This ensures that the left subtree is processed before the right subtree.
+
+        Yields:
+            BinaryNode: The next node in the tree, following the Preorder DFS traversal order.
+        """
+        stack = Stack()
+        stack.push(self.root)
+
+        while not stack.is_empty():
+            current: BinaryNode = stack.pop()
+            if current.left:
+                stack.push(current.left)
+            if current.right:
+                stack.push(current.right)
+            yield current
+
+    def is_full(self) -> bool:
+        """Checks if the binary tree full.
+
+        A binary tree is considered full if every node has either exactly two children
+        or no children at all. If at least one node has only one child, the tree is not full.
+
+        Returns:
+            bool: True if the binary tree is full, False otherwise.
+        """
+        for node in self:
+            if node.left and not node.right:
+                return False
+        return True
+
+
+if __name__ == "__main__":
+    tree = BinaryTree(1)
+    line_num = int(input())
+
+    for _ in range(line_num):
+        line = input()
+        res = match(
+            r'(?P<parent_id>\d+): (?P<left>\d+)? ?(?P<right>\d+)?\s*', line)
+
+        if res['left']:
+            tree.add_child(int(res['left']), int(res['parent_id']))
+        if res['right']:
+            tree.add_child(int(res['right']), int(res['parent_id']))
+
+    print(tree.is_full())
