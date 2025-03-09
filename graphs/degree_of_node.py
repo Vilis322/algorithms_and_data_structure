@@ -124,6 +124,29 @@ class Tree:
         node = self.map[node_id]
         return len(node.child)
 
+    def height(self, node_id: int) -> int:
+        """Calculates the height of a given node in the tree.
+
+        The height of a node is the length of the longest path from that node to a descendant leaf node.
+        A node with no children (a leaf) has a height of 0.
+        The height is measured by the number of edges encountered on the path from the node to the deepest leaf.
+
+        Args:
+            node_id (int): The ID of the node for which to calculate the height.
+
+        Returns:
+            int: The height of the specified node in the tree.
+        """
+        node = self.map[node_id]  # Get the node by its ID
+
+        if not node.child:  # The height is '0' if node is a leaf.
+            return 0
+
+        #  Otherwise, calculate the height of each child for node recursively
+        #  The height of the current node is 1 + the maximum height among its children
+        height = [self.height(child.id) for child in node.child]
+        return 1 + max(height)
+
 
 if __name__ == "__main__":
     tree = Tree('A')
@@ -131,9 +154,8 @@ if __name__ == "__main__":
     C = tree.add_child('C')
     tree.add_child('D', B.id)
     tree.add_child('E', B.id)
-    tree.add_child('F', B.id)
-    G = tree.add_child('G', C.id)
-    H = tree.add_child('H', G.id)
+    F = tree.add_child('F', C.id)
+    G = tree.add_child('G', F.id)
 
     node_id = int(input())
-    print(tree.degree(node_id))
+    print(tree.height(node_id))
