@@ -91,7 +91,10 @@ class BinaryTree:
 
         Args:
             child_data (Any): The given data stored in the child node.
-            to_node_id (int): The unique ID for the parent node, default is '0' (root of the tree)
+            to_node_id (int): The unique ID for the parent node, default is '0' (root of the tree).
+
+        Returns:
+            BinaryNode: The newly created child node.
 
         Raises:
             MaxChildrenError: If the parent node already has left and right children.
