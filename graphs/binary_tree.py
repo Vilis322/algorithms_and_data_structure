@@ -80,7 +80,7 @@ class BinaryTree:
         self.root: 'BinaryNode' = BinaryNode(BinaryNode_id=0, data=root_data)
         self.map: dict = {0: self.root}
 
-    def add_child(self, child_data: Any, to_node_id: int = 0) -> None:
+    def add_child(self, child_data: Any, to_node_id: int = 0) -> 'BinaryNode':
         """Adds a child node to the binary tree.
 
         This method creates a new child node with a unique ID and attaches it to the parent node
@@ -106,6 +106,7 @@ class BinaryTree:
         else:
             raise MaxChildrenError("In BinaryTree one can't be added more than 2 Nodes to parent.")
         self.map[last_id] = new_node
+        return new_node
 
     def __iter__(self):
         """Performs a Preorder Depth-First Search (DFS) traversal of the binary tree.
