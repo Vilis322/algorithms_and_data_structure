@@ -41,8 +41,8 @@ class BinaryNode:
     def __init__(self, BinaryNode_id: int, data: Any, parent: 'BinaryNode' = None):
         """Initializes a new node in the binary tree.
 
-        This method initializes the binary node with the given data, sets its unique ID,
-        and establishes a parent-child relationship. By default, both left and right children
+        This method initializes the binary node with the given data, sets its unique ID.
+        Sets the parent reference if provided. By default, both left and right children
         are set to 'None'.
 
         Args:
