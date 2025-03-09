@@ -106,8 +106,8 @@ class AVLNode:
         Returns:
             int: The balancing factor itself.
         """
-        left_height = self.left.height if self.left else 0
-        right_height = self.right.height if self.right else 0
+        left_height = self.left.height if self.left else -1
+        right_height = self.right.height if self.right else -1
         return left_height - right_height
 
 
