@@ -41,6 +41,8 @@ class CircularQueue:
         """
         if self.is_empty():
             self.front = self.rear = 0
+            self.queue[self.rear] = value
+            return
         elif self.is_full():
             self.front = (self.front + 1) % self.capacity
         self.rear = (self.rear + 1) % self.capacity
@@ -88,15 +90,5 @@ class CircularQueue:
 
 if __name__ == "__main__":
     cq = CircularQueue(5)
-    cq.enqueue(1)
-    cq.enqueue(2)
-    cq.enqueue(3)
-    cq.enqueue(4)
-    cq.enqueue(5)
-    cq.display()
-    cq.dequeue()
-    cq.display()
-    cq.enqueue(6)
-    cq.display()
-    cq.enqueue(7)
-    cq.display()
+    for i in [1, 2, 3, 4, 5]:
+        cq.enqueue(i)
