@@ -59,6 +59,7 @@ class CircularQueue:
             return None
 
         value = self.queue[self.front]
+        self.queue[self.front] = None
         if self.front == self.rear:
             self.front = self.rear = -1
         else:
