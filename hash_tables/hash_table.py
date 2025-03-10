@@ -28,7 +28,7 @@ class HashData:
             key (int): The key to be inserted into the hash table.
         """
         self.count += 1
-        if self.count / self.size > self.lf_threshold:
+        if self.count / self.size >= self.lf_threshold:
             self.rehash()
 
         index = self.hash_function(key)
@@ -41,13 +41,13 @@ class HashData:
 
     def rehash(self) -> None:
         """Rehashes the hash table by doubling its size and re-inserting the elements."""
-        new_table = HashData(self.size * 2)
-        for key in self.table:
+        self.size = self.size * 2
+        old_table = self.table
+        self.table = [None] * self.size
+
+        for key in old_table:
             if key is not None:
-                new_table.put(key)
-        self.table = new_table.table
-        self.size = new_table.size
-        self.count = new_table.count
+                self.put(key)
 
     def display(self) -> None:
         """Displays the current state of the hash table with indices and their values."""
@@ -55,9 +55,15 @@ class HashData:
             print(f"{hash_value}: {key}")
 
 
-hash_table = HashData()
+if __name__ == "__main__":
+    hash1 = HashData()
 
-# Теперь вызываем метод put через этот объект
-hash_table.put(10)  # Вставка ключа 10
-hash_table.put(20)
-print(hash_table.table)
+    # keys
+    keys = [int(x) for x in input().split(', ')]
+
+    # apply hash function to each key
+    for key in keys:
+        hash1.put(key)
+        print(hash1.count)
+
+    hash1.display()
