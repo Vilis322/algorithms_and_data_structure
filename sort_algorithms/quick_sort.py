@@ -3,9 +3,9 @@ def quick_sort(data: list, low: int = 0, high: int = None) -> list:
 
     The function sorts data by using a median of three elements: the first, middle, and last element.
     It then creates two indices, `left` and `right`. The `left` index represents the position of
-    an element greater than or equal to the pivot, and the `right` index represents an element
+    an element greater than the pivot, and the `right` index represents an element
     less than the pivot. The function then enters a loop:
-    - The `left` index increments until an element greater than or equal to the pivot is found.
+    - The `left` index increments until an element greater than the pivot is found.
     - The `right` index decrements until an element less than the pivot is found.
     If `left` is less than or equal to `right`, the elements at `left` and `right` are swapped.
     After partitioning, the function recursively sorts the left and right halves of the array.
