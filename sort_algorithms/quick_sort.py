@@ -1,3 +1,7 @@
+import pytest
+from random import randint
+
+
 def quick_sort(data: list, low: int = 0, high: int = None) -> list:
     """Represents a quick sort algorithm.
 
@@ -63,8 +67,15 @@ def quick_sort(data: list, low: int = 0, high: int = None) -> list:
     return data
 
 
-if __name__ == "__main__":
-    list1 = [int(x) for x in input("Unsorted List: ").split()]
+def test_quick_sort():
+    data = [randint(0, 100) for _ in range(100)]
+    sorted_data = quick_sort(data)
 
-    sorted_list = quick_sort(list1)
-    print(f"Sorted List: {sorted_list}")
+    assert all(sorted_data[i] <= sorted_data[i + 1] for i in range(len(sorted_data) - 1))
+    assert quick_sort([]) == []
+    assert quick_sort([45]) == [45]
+    assert quick_sort([5, 5, 5, 5]) == [5, 5, 5, 5]
+
+
+if __name__ == "__main__":
+    pytest.main()
